@@ -1,0 +1,2 @@
+# Ignore input dir (can be easily regenerated using create_images.py)
+input
