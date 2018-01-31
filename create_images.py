@@ -32,7 +32,7 @@ def add_circle(img, mask):
 
     cv2.circle(img, center=shape_center, radius=shape_radius, color=shape_color, thickness=-1)
     cv2.circle(mask, center=shape_center, radius=shape_radius, color=255, thickness=-1)
-    bounding_box = (shape_center[0]-shape_radius, shape_center[1]-shape_radius, shape_center[0]+shape_radius, shape_center[1]+shape_radius) # x1,y1,x2,y2
+    bounding_box = (shape_center[0]-shape_radius, shape_center[1]-shape_radius, shape_radius*2, shape_radius*2) # x1,y1,w,h
     return img, mask, bounding_box
 
 def add_rectangle(img, mask):
@@ -46,7 +46,7 @@ def add_rectangle(img, mask):
 
     cv2.rectangle(img, shape_x1y1, shape_x2y2, color=shape_color, thickness=-1)
     cv2.rectangle(mask, shape_x1y1, shape_x2y2, color=255, thickness=-1)
-    bounding_box = shape_x1y1 + shape_x2y2
+    bounding_box = (min(shape_x1y1[0], shape_x2y2[0]), shape_x1y1[1], abs(shape_x2y2[0]-shape_x1y1[0]), abs(shape_x2y2[1]-shape_x1y1[1]))
     return img, mask, bounding_box
 
 def create_random_img(img_size=64, noise_level=0.1, color_threshold=127):
