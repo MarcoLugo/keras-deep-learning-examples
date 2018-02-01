@@ -37,7 +37,8 @@ def get_bounding_boxes(name_indices, appendix=''): # Passing _n as appendix gets
     df_bbox = pd.read_csv(input_dir + '/bounding_boxes'+appendix+'.txt', header=None, prefix='V')
     df_order = pd.DataFrame({'V0':name_indices})
     df_result = pd.merge(df_order, df_bbox, on='V0', how='left')
-    return df_result.values
+    np_result = df_result.values
+    return np_result[:,1:] # Drop the index (filename), only keep bounding box coordinates
 
 def load_data(): #TODO: implement _n
     train_dir = os.path.join(input_dir, 'train')
